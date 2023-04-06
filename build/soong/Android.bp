@@ -47,6 +47,23 @@ cc_library_headers {
 
 // Target platform agnostic config modules
 soong_config_module_type {
+    name: "disable_postrender_cleanup",
+    module_type: "cc_defaults",
+    config_namespace: "arrowGlobalVars",
+    bool_variables: ["disable_postrender_cleanup"],
+    properties: ["cppflags"],
+}
+
+disable_postrender_cleanup {
+    name: "disable_postrender_cleanup_defaults",
+    soong_config_variables: {
+        disable_postrender_cleanup: {
+            cppflags: ["-DDISABLE_POSTRENDER_CLEANUP"],
+        },
+    },
+}
+
+soong_config_module_type {
     name: "gralloc_10_usage_bits",
     module_type: "cc_defaults",
     config_namespace: "arrowGlobalVars",
@@ -131,6 +148,23 @@ surfaceflinger_udfps_lib {
         target_surfaceflinger_udfps_lib: {
             cppflags: ["-DTARGET_PROVIDES_UDFPS_LIB"],
             whole_static_libs: ["%s"],
+        },
+    },
+}
+
+soong_config_module_type {
+    name: "needs_netd_direct_connect_rule",
+    module_type: "cc_defaults",
+    config_namespace: "arrowGlobalVars",
+    bool_variables: ["needs_netd_direct_connect_rule"],
+    properties: ["cppflags"],
+}
+
+needs_netd_direct_connect_rule {
+    name: "needs_netd_direct_connect_rule_defaults",
+    soong_config_variables: {
+        needs_netd_direct_connect_rule: {
+            cppflags: ["-DNEEDS_NETD_DIRECT_CONNECT_RULE"],
         },
     },
 }
@@ -235,7 +269,7 @@ soong_config_module_type {
 soong_config_module_type {
     name: "qti_camera_device",
     module_type: "cc_defaults",
-    config_namespace: "lineageQcomVars",
+    config_namespace: "arrowQcomVars",
     bool_variables: ["uses_qti_camera_device"],
     properties: [
         "cppflags",
